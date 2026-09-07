@@ -10,7 +10,7 @@
             const data = await response.json();
             
             // 获取当前网页的 ID
-            const id = parseInt(window.location.pathname.split('/').pop().split('.')[0]);
+            const id = parseInt(window.location.pathname.split('yanvzu/').pop().split('.')[0]);
             
             // 查找对应 ID 的对象
             const item = data.find(product => product.id === id);
