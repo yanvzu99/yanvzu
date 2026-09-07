@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, content-fit=cover">
+    <title>商品详情</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+        .product {
+            margin: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="product"></div>
+
+    <script>
+        // 此处假设ID是2
+        const id = 2;
+
+        const jsonUrl = `${id}.json`;
+
+        fetch(jsonUrl)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('无法加载JSON文件');
+                }
+                return response.json();
+            })
+            .then(data => {
+                const productDiv = document.querySelector('.product');
+                productDiv.innerHTML = `
+                    <h1>${data.title}</h1>
+                    <p>${data.content}</p>
+                    <p>价格: ${data.price} 元</p>
+                    <p><a href="${data.url}" target="_blank">查看商品</a></p>
+                `;
+            })
+            .catch(error => {
+                console.error('获取数据失败:', error);
+                document.querySelector('.product').innerText = '无法加载商品信息';
+            });
+    </script>
+</body>
+</html>
