@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>动态页面</title>
+    <script>
+        async function loadData() {
+            const response = await fetch('data.json');
+            const data = await response.json();
+            
+            // 获取当前网页的 ID
+            const id = window.location.pathname.split('/').pop().split('.')[0];
+            const item = data[id];
+
+            // 根据 ID 显示内容
+            if (item) {
+                document.getElementById('title').innerText = item.title;
+                document.getElementById('content').innerText = item.content;
+                document.getElementById('price').innerText = '价格: ' + item.price;
+                document.getElementById('url').innerText = item.url;
+                document.getElementById('url').href = item.url;
+            } else {
+                document.getElementById('title').innerText = '未找到内容';
+                document.getElementById('content').innerText = '';
+                document.getElementById('price').innerText = '';
+                document.getElementById('url').innerText = '';
+            }
+        }
+
+        window.onload = loadData;
+    </script>
+</head>
+<body>
+    <h1 id="title">标题</h1>
+    <p id="content">内容</p>
+    <p id="price">价格: </p>
+    <a id="url" href="#" target="_blank">链接</a>
+</body>
+</html>
